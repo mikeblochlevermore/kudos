@@ -27,8 +27,13 @@ class Like(models.Model):
    post = models.ForeignKey(Post, on_delete=models.CASCADE, related_name="like")
    time = models.DateTimeField()
 
-   def __str__(self):
-        return f"{self.user}, {self.post}, {self.time}"
+   def serialize(self):
+        return {
+            "id": self.id,
+            # "user": f"{self.user}",
+            # "post": f"{self.post}",
+            # "time": self.time.strftime("%b %d %Y, %I:%M %p"),
+        }
 
 
 class Follower(models.Model):

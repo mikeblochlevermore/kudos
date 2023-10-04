@@ -24,31 +24,67 @@ function view_posts() {
                 <div>${post.content}</div>
                 <p id="like_count_${post.id}">${post.like_count}</p>
                 </div>
-                <button onclick="like(${post.id})" id="like_button_${post.id}">🤍</button>
+                <button onclick="like(${post.id})" id="like_button_${post.id}"></button>
                 `;
                 postList.append(element);
+
+                console.log(post.id)
+
+                fetch(`/like/${post.id}`)
+                .then(response => response.json())
+                .then(like => {
+                    console.log(like)
+                    if (like == true) {
+                        button = document.getElementById(`like_button_${post.id}`)
+                        button.innerHTML = "💚"
+                    }
+                    else {
+                        button = document.getElementById(`like_button_${post.id}`)
+                        button.innerHTML = "🤍"
+                    }
+                })
+
           })
-      });
+      })
 }
 
 function like(post_id) {
-    console.log("liked", {post_id})
 
-    // updates the like count on the page
-    counter = document.getElementById(`like_count_${post_id}`).innerHTML
-    counter++
-    document.getElementById(`like_count_${post_id}`).innerHTML = counter;
-
-    // Change like button to green
     button = document.getElementById(`like_button_${post_id}`)
-    console.log(button)
-    button.innerHTML = "💚"
 
-    // sends a PUT request to the API to add the like to the database
-    fetch(`/like/${post_id}`, {
-        method: 'PUT',
-        body: JSON.stringify({
-          like_count: 1,
-        }),
-      })
-}
+    if (button.innerHTML == "🤍") {
+        console.log("white")
+        counter = document.getElementById(`like_count_${post_id}`).innerHTML
+        counter++
+        document.getElementById(`like_count_${post_id}`).innerHTML = counter;
+
+        // Change like button to green
+        button = document.getElementById(`like_button_${post_id}`)
+        button.innerHTML = "💚"
+
+        // sends a PUT request to the API to add the like to the database
+        fetch(`/like/${post_id}`, {
+            method: 'PUT',
+            body: JSON.stringify({
+              like_count: 1,
+            }),
+          })
+    }
+    else {
+        counter = document.getElementById(`like_count_${post_id}`).innerHTML
+        counter--
+        document.getElementById(`like_count_${post_id}`).innerHTML = counter;
+
+        // Change like button to green
+        button = document.getElementById(`like_button_${post_id}`)
+        button.innerHTML = "🤍"
+
+        // sends a PUT request to the API to add the like to the database
+        fetch(`/like/${post_id}`, {
+            method: 'PUT',
+            body: JSON.stringify({
+              like_count: 1,
+            }),
+          })
+    }
+    }

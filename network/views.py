@@ -83,24 +83,6 @@ def new_post(request):
         return HttpResponseRedirect(reverse("index"))
 
 
-# def like(request, post_id):
-#     if request.method == "POST":
-
-#         post = Post.objects.get(id=post_id)
-
-#         like = Like(
-#         post=post,
-#         user=request.user,
-#         time=datetime.now()
-#         )
-
-#         like.save()
-
-#         post.like_count = post.like_count + 1
-#         post.save()
-
-#         return HttpResponseRedirect(reverse("index"))
-
 
 @csrf_exempt
 @login_required
@@ -127,13 +109,41 @@ def view_posts(request):
 @login_required
 def like(request, post_id):
 
-        try:
+        if request.method == "GET":
             post = Post.objects.get(id=post_id)
-        except Post.DoesNotExist:
-            return JsonResponse({"error": "Post not found."}, status=404)
+            # Searches for a like already made by the current user on this post
+            like = Like.objects.filter(post=post, user=request.user)
+
+            if like.exists():
+                return JsonResponse(True, safe=False)
+            else:
+                return JsonResponse(False, safe=False)
 
         if request.method == "PUT":
-            data = json.loads(request.body)
-            post.like_count = post.like_count + data["like_count"]
-            post.save()
-            return HttpResponse(status=204)
+            post = Post.objects.get(id=post_id)
+            like = Like.objects.filter(post=post, user=request.user)
+
+            if like.exists():
+                # If the post is liked by the user already, deletes the like from the database
+                like.delete()
+
+                # Updates the like_count in the Post model (decreases the count of the earlier like)
+                data = json.loads(request.body)
+                post.like_count = post.like_count - data["like_count"]
+                post.save()
+
+            else:
+                # Adds a new like in the Like model
+                new_like = Like(
+                    user=request.user,
+                    post=post,
+                    time=datetime.now(),
+                )
+                new_like.save()
+
+                # Updates the like count in the Post model (adds a like)
+                data = json.loads(request.body)
+                post.like_count = post.like_count + data["like_count"]
+                post.save()
+
+        return HttpResponse(status=204)
