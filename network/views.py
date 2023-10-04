@@ -13,10 +13,7 @@ import json
 
 def index(request):
 
-    posts = Post.objects.all()
-
     return render(request, "network/index.html", {
-        "posts": posts,
     })
 
 
@@ -86,23 +83,23 @@ def new_post(request):
         return HttpResponseRedirect(reverse("index"))
 
 
-def like(request, post_id):
-    if request.method == "POST":
+# def like(request, post_id):
+#     if request.method == "POST":
 
-        post = Post.objects.get(id=post_id)
+#         post = Post.objects.get(id=post_id)
 
-        like = Like(
-        post=post,
-        user=request.user,
-        time=datetime.now()
-        )
+#         like = Like(
+#         post=post,
+#         user=request.user,
+#         time=datetime.now()
+#         )
 
-        like.save()
+#         like.save()
 
-        post.like_count = post.like_count + 1
-        post.save()
+#         post.like_count = post.like_count + 1
+#         post.save()
 
-        return HttpResponseRedirect(reverse("index"))
+#         return HttpResponseRedirect(reverse("index"))
 
 
 @csrf_exempt
@@ -124,3 +121,19 @@ def view_posts(request):
         return JsonResponse({
             "error": "GET or PUT request required."
         }, status=400)
+
+
+@csrf_exempt
+@login_required
+def like(request, post_id):
+
+        try:
+            post = Post.objects.get(id=post_id)
+        except Post.DoesNotExist:
+            return JsonResponse({"error": "Post not found."}, status=404)
+
+        if request.method == "PUT":
+            data = json.loads(request.body)
+            post.like_count = post.like_count + data["like_count"]
+            post.save()
+            return HttpResponse(status=204)

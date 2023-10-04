@@ -12,14 +12,13 @@ class Post(models.Model):
    time = models.DateTimeField(auto_now_add=True)
    like_count = models.IntegerField(default=0)
 
-#    def __str__(self):
-#         return f"{self.user}, {self.content}, {self.time}"
-
    def serialize(self):
         return {
+            "id": self.id,
             "user": f"{self.user}",
             "content": self.content,
             "time": self.time.strftime("%b %d %Y, %I:%M %p"),
+            "like_count": self.like_count
         }
 
 
