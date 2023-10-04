@@ -9,11 +9,18 @@ class User(AbstractUser):
 class Post(models.Model):
    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="post")
    content = models.CharField(max_length=264)
-   time = models.DateTimeField()
+   time = models.DateTimeField(auto_now_add=True)
    like_count = models.IntegerField(default=0)
 
-   def __str__(self):
-        return f"{self.user}, {self.content}, {self.time}"
+#    def __str__(self):
+#         return f"{self.user}, {self.content}, {self.time}"
+
+   def serialize(self):
+        return {
+            "user": f"{self.user}",
+            "content": self.content,
+            "time": self.time.strftime("%b %d %Y, %I:%M %p"),
+        }
 
 
 class Like(models.Model):
