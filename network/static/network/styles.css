@@ -2,10 +2,14 @@
     margin: 0;
 }
 
+main {
+    margin: 20px;
+}
+
 .post {
     display: flex;
-    margin: 20px;
     padding: 20px;
+    margin-top: 20px;
     gap: 10px;
     border: 1px solid grey;
 }

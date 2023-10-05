@@ -2,16 +2,18 @@
 {% load static %}
 
 {% block body %}
+    <!-- CREATE A NEW POST -->
     <div class="wrapper">
         <h2>New Post</h2>
 
         <form action="{% url 'new_post' %}" method="POST" class="create_form">
             {% csrf_token %}
             <input type="text", name="content", placeholder="Content">
-            <input class="submit_button" type="submit">
+            <input type="submit">
         </form>
     </div>
 
+    <!-- POSTS -->
     <div id="posts">
 
     </div>

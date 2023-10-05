@@ -1,0 +1,17 @@
+{% extends "network/layout.html" %}
+{% load static %}
+
+{% block body %}
+
+    <h1>{{ user.username }}</h1>
+
+    <button type="submit">Follow</button>
+
+    <h3>Followers:</h3>
+    <h3>Following:</h3>
+
+    <div id="posts">
+
+    </div>
+
+{% endblock %}

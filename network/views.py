@@ -16,6 +16,11 @@ def index(request):
     return render(request, "network/index.html", {
     })
 
+def profile(request, username):
+
+    return render(request, "network/profile.html", {
+    })
+
 
 def login_view(request):
     if request.method == "POST":
@@ -86,13 +91,23 @@ def new_post(request):
 
 @csrf_exempt
 @login_required
-def view_posts(request):
+def view_posts(request, username):
 
-    # Query for requested posts
-    try:
-        posts = Post.objects.all()
-    except Post.DoesNotExist:
-        return JsonResponse({"error": "Email not found."}, status=404)
+    if username == "all":
+            # Query for requested posts
+        try:
+            posts = Post.objects.all()
+        except Post.DoesNotExist:
+            return JsonResponse({"error": "Email not found."}, status=404)
+
+    else:
+        user = User.objects.get(username=username)
+
+        # Query for requested posts
+        try:
+            posts = Post.objects.filter(user=user)
+        except Post.DoesNotExist:
+            return JsonResponse({"error": "Email not found."}, status=404)
 
     # Return posts contents
     if request.method == "GET":

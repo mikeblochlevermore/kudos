@@ -1,13 +1,12 @@
 document.addEventListener('DOMContentLoaded', function() {
 
-    // By default, load the inbox
-    view_posts();
+    view_posts("all");
   });
 
 
-function view_posts() {
+function view_posts(username) {
 
-    fetch(`/view_posts`)
+    fetch(`/view_posts/${username}`)
     .then(response => response.json())
     .then(posts => {
 
@@ -25,7 +24,9 @@ function view_posts() {
                     </div>
                     <div>
                         <div class="post_details">
-                            <strong>${post.user}</strong>
+                            <strong>
+                                <a href="/${post.user}">${post.user}</a>
+                            </strong>
                             <div class="post_time">${post.time}</div>
                         </div>
                         <div class="post_content">${post.content}</div>
