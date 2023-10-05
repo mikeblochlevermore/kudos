@@ -1,5 +1,45 @@
+* {
+    margin: 0;
+}
+
 .post {
     display: flex;
     margin: 20px;
+    padding: 20px;
+    gap: 10px;
     border: 1px solid grey;
+}
+
+.post_details {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+.post_time {
+    color: grey;
+}
+
+.post_content {
+    padding-bottom: 10px;
+}
+
+.like_display {
+    display: flex;
+    font-size: 20px;
+}
+
+.like_display button {
+    border: 0;
+    background-color: inherit;
+    border-radius: 50%;
+}
+
+.like_display button:hover {
+    background-color: lightgreen;
+}
+
+.like_display button:focus {
+    outline: none;
+    background-color: inherit;
 }

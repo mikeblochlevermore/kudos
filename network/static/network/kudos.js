@@ -20,17 +20,23 @@ function view_posts() {
             element.innerHTML =
                 `
                 <div class="post">
-                    <div class="post_details">
+                    <div class="avatar">
                         <h1>❍</h1>
                     </div>
                     <div>
-                        <strong>${post.user}</strong>
-                        <div>${post.time}</div>
-                    </div>
-                    <div>${post.content}</div>
-                    <div class="like_display">
-                        <button id="like_button_${post.id}"></button>
-                        <p id="like_count_${post.id}">${post.like_count}</p>
+                        <div class="post_details">
+                            <strong>${post.user}</strong>
+                            <div class="post_time">${post.time}</div>
+                        </div>
+                        <div class="post_content">${post.content}</div>
+                        <div class="like_display">
+                            <div>
+                                <button id="like_button_${post.id}"></button>
+                            </div>
+                            <div>
+                                <p id="like_count_${post.id}">${post.like_count}</p>
+                            <div>
+                        </div>
                     </div>
                 </div>
                 `;
