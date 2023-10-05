@@ -1,0 +1,5 @@
+.post {
+    display: flex;
+    margin: 20px;
+    border: 1px solid grey;
+}

@@ -127,10 +127,12 @@ def like(request, post_id):
                 # If the post is liked by the user already, deletes the like from the database
                 like.delete()
 
-                # Updates the like_count in the Post model (decreases the count of the earlier like)
+                # Updates the like_count in the Post model (adds -1 from data)
                 data = json.loads(request.body)
-                post.like_count = post.like_count - data["like_count"]
+                post.like_count = post.like_count + data["like_count"]
                 post.save()
+
+                # ADD A EXPECT TEST HERE TO CHECK THE DATA INCLUDES THE RIGHT INFO
 
             else:
                 # Adds a new like in the Like model
@@ -141,7 +143,7 @@ def like(request, post_id):
                 )
                 new_like.save()
 
-                # Updates the like count in the Post model (adds a like)
+                # Updates the like count in the Post model (adds 1 from data)
                 data = json.loads(request.body)
                 post.like_count = post.like_count + data["like_count"]
                 post.save()
