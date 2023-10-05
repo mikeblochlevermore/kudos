@@ -3,12 +3,16 @@
 
 {% block body %}
 
-    <h1>{{ user.username }}</h1>
+    <h1>{{ username }}</h1>
 
-    <button type="submit">Follow</button>
+    <button type="submit" id="follow_button">Follow</button>
 
-    <h3>Followers:</h3>
-    <h3>Following:</h3>
+    <h3>Followers: {% for follower in followers %}
+                    {{ follower.follower }},
+                    {% endfor %}
+    </h3>
+
+    <h3>Following: {{ following }}</h3>
 
     <div id="posts">
 

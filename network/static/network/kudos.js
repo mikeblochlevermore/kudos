@@ -1,11 +1,29 @@
 document.addEventListener('DOMContentLoaded', function() {
 
-    view_posts("all");
+    // Get the current path from the URL
+    const currentPath = window.location.pathname;
+
+    // If the current url is the index, view_posts("all")
+    if (currentPath === "/") {
+        view_posts("all");
+
+    } else {
+        // If the current url contains a username, view_posts("username")
+        // Note: "substring(1)" removes the "/" from e.g. "/mike"
+        username = currentPath.substring(1)
+        view_posts(username)
+
+        // setup the follow button
+        follow_button = document.getElementById("follow_button")
+        follow_button.setAttribute("onclick", `follow('${username}')`)
+    }
+
   });
 
 
 function view_posts(username) {
 
+    // If a username "all" is submitted, all posts will be sent by the API
     fetch(`/view_posts/${username}`)
     .then(response => response.json())
     .then(posts => {
@@ -89,5 +107,14 @@ function like(post_id, liked) {
         body: JSON.stringify({
             like_count: data,
         }),
+    })
+}
+
+function follow(username) {
+
+    console.log(username)
+
+    fetch(`${username}/follow`, {
+        method: 'PUT',
     })
 }

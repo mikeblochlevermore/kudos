@@ -18,7 +18,18 @@ def index(request):
 
 def profile(request, username):
 
+    user = User.objects.get(username=username)
+
+    followers = Follower.objects.filter(user=user)
+    follower_count = followers.count()
+
+    following = Follower.objects.filter(follower=user)
+    following_count = following.count()
+
     return render(request, "network/profile.html", {
+        "username": username,
+        "followers":  followers,
+        "following": following_count,
     })
 
 
@@ -94,19 +105,18 @@ def new_post(request):
 def view_posts(request, username):
 
     if username == "all":
-            # Query for requested posts
+        # Query for all posts
         try:
             posts = Post.objects.all()
         except Post.DoesNotExist:
             return JsonResponse({"error": "Email not found."}, status=404)
 
     else:
-        user = User.objects.get(username=username)
-
-        # Query for requested posts
+        # Query for selected posts by that username
         try:
+            user = User.objects.get(username=username)
             posts = Post.objects.filter(user=user)
-        except Post.DoesNotExist:
+        except Post.DoesNotExist or User.DoesNotExist:
             return JsonResponse({"error": "Email not found."}, status=404)
 
     # Return posts contents
@@ -163,4 +173,21 @@ def like(request, post_id):
                 post.like_count = post.like_count + data["like_count"]
                 post.save()
 
+        return HttpResponse(status=204)
+
+
+@csrf_exempt
+@login_required
+def follow(request, username):
+    print("new follow!")
+    if request.method == "PUT":
+
+        user = User.objects.get(username=username)
+
+        new_follow = Follower(
+            user=user,
+            follower=request.user
+        )
+        print(f"USER:", new_follow.user, "FOLLOWER", new_follow.follower)
+        new_follow.save()
         return HttpResponse(status=204)
