@@ -2,6 +2,15 @@
     margin: 0;
 }
 
+#logo {
+    border-radius: 10px;
+    font-size: 50px;
+    text-decoration: none;
+    color: black;
+    padding: 10px;
+    font-family: 'Work Sans', sans-serif;
+}
+
 main {
     margin: 20px;
 }
@@ -37,13 +46,48 @@ main {
     border: 0;
     background-color: inherit;
     border-radius: 50%;
+    outline: none;
 }
 
 .like_display button:hover {
-    background-color: lightgreen;
+    background-color: lightyellow;
+    color: transparent;
+    text-shadow: 0 0 0 grey;
 }
 
-.like_display button:focus {
+
+#follow_button_div {
+    margin-bottom: 20px;;
+}
+
+#follow_button {
+    background-color: lightgreen;
+    border-radius: 10px;
+    width: 100px;
+    height: 35px;
     outline: none;
-    background-color: inherit;
+    border: none;
+}
+
+#unfollow_button {
+    background-color: lightgray;
+    border-radius: 10px;
+    width: 100px;
+    height: 35px;
+    outline: none;
+    border: none;
+}
+
+#follow_details {
+    display: flex;
+    gap: 20px;
+}
+
+#follow_details div {
+    display: flex;
+    gap: 10px;
+}
+
+#follow_details p {
+    color: gray;
 }

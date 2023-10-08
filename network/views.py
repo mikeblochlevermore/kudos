@@ -17,7 +17,7 @@ def index(request):
     })
 
 
-def following(request):
+def view_following(request):
 
     return render(request, "network/following.html", {
     })
@@ -213,15 +213,31 @@ def like(request, post_id):
 @csrf_exempt
 @login_required
 def follow(request, username):
-    print("new follow!")
+
+    user = User.objects.get(username=username)
+    # checks to see if the account is already followed by the current user
+
+    if request.method == "GET":
+            followed = Follower.objects.filter(user=user, follower=request.user)
+            # returns information to frontend on whether the account is already followed by the current user
+            if followed.exists():
+                return JsonResponse(True, safe=False)
+            else:
+                return JsonResponse(False, safe=False)
+
     if request.method == "PUT":
 
-        user = User.objects.get(username=username)
+        followed = Follower.objects.filter(user=user, follower=request.user)
+        # If the account is already followed by the user, deletes the relationship from the database
+        if followed.exists():
+            followed.delete()
+            print("unfollowed")
 
-        new_follow = Follower(
+        else:
+            new_follow = Follower(
             user=user,
-            follower=request.user
-        )
-        print(f"USER:", new_follow.user, "FOLLOWER", new_follow.follower)
-        new_follow.save()
-        return HttpResponse(status=204)
+            follower=request.user)
+            print(f"New Follow: USER:", new_follow.user, "FOLLOWER", new_follow.follower)
+            new_follow.save()
+
+    return HttpResponse(status=204)

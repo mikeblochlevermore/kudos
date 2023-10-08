@@ -5,20 +5,25 @@
 
     <h1>{{ username }}</h1>
 
-    <button type="submit" id="follow_button">Follow</button>
+    <!-- Follow / unfollow button if not the current user's profile page -->
+    {% if user.username != username %}
+        <div id="follow_button_div">
+            <button type="submit" id="">Follow</button>
+        </div>
+    {% endif %}
 
-    <h4>Followers {{ follower_count }}</h4>
-    <h4>Following {{ following_count }}</h4>
+    <div id="follow_details">
+        <div>
+            <strong id="follower_count">{{ follower_count }}</strong>
+            <p>Followers</p>
+        </div>
+        <div>
+            <strong>{{ following_count }}</strong>
+            <p>Following</p>
+        </div>
+    </div>
 
-    <!-- <h3>Followers: {% for follower in followers %}
-                    {{ follower.follower }},
-                    {% endfor %}
-    </h3>
-
-    <h3>Following: {% for follower in following %}
-        {{ follower.user }},
-        {% endfor %} -->
-
+    <h4>Posts</h4>
     <div id="posts">
 
     </div>

@@ -17,10 +17,27 @@ document.addEventListener('DOMContentLoaded', function() {
         view_posts(username)
 
         // setup the follow button
-        follow_button = document.getElementById("follow_button")
-        follow_button.setAttribute("onclick", `follow('${username}')`)
-    }
 
+        fetch(`/profile/${username}/follow`)
+        .then(response => response.json())
+        .then(followed => {
+
+            const follow_button_div = document.getElementById("follow_button_div");
+            const button = follow_button_div.querySelector("button");
+
+            if (followed == true) {
+                // onclick the button will trigger the like function, passing on the true/false status of previous likes
+                button.setAttribute("onclick", `follow('${username}', true)`)
+                button.innerHTML = "Following"
+                button.setAttribute("id", "unfollow_button");
+            }
+            else {
+                button.setAttribute("onclick", `follow('${username}', false)`)
+                button.innerHTML = "Follow"
+                button.setAttribute("id", "follow_button");
+            }
+        })
+    }
   });
 
 
@@ -53,7 +70,7 @@ function view_posts(filter) {
                         <div class="post_content">${post.content}</div>
                         <div class="like_display">
                             <div>
-                                <button id="like_button_${post.id}"></button>
+                                <button id="like_button_${post.id}">🙌</button>
                             </div>
                             <div>
                                 <p id="like_count_${post.id}">${post.like_count}</p>
@@ -73,11 +90,13 @@ function view_posts(filter) {
                     if (liked == true) {
                         // onclick the button will trigger the like function, passing on the true/false status of previous likes
                         button.setAttribute("onclick", `like(${post.id}, true)`)
-                        button.innerHTML = "💚"
+                        button.style.color = "black";
+                        button.style.textShadow = "none";
                     }
                     else {
                         button.setAttribute("onclick", `like(${post.id}, false)`)
-                        button.innerHTML = "🤍"
+                        button.style.color = "transparent";
+                        button.style.textShadow = "0 0 0 grey";
                     }
                 })
 
@@ -93,14 +112,16 @@ function like(post_id, liked) {
     // if the post was previously liked, decrease the like count, change the button properties to "unliked"
     if (liked == true) {
         like_counter.innerHTML--
-        button.innerHTML = "🤍"
+        button.style.color = "transparent";
+        button.style.textShadow = "0 0 0 grey";
         button.setAttribute("onclick", `like(${post_id}, false)`)
         data = -1
     }
     // if the post was not previously liked, increase the like count, change the button properties to "liked"
     else {
         like_counter.innerHTML++
-        button.innerHTML = "💚"
+        button.style.color = "black";
+        button.style.textShadow = "none";
         button.setAttribute("onclick", `like(${post_id}, true)`)
         data = 1
     }
@@ -113,9 +134,26 @@ function like(post_id, liked) {
     })
 }
 
-function follow(username) {
+function follow(username, followed) {
 
-    console.log(username)
+    const follow_button_div = document.getElementById("follow_button_div");
+    const button = follow_button_div.querySelector("button");
+
+    // if the account is being unfollowed - (already) followed = true:
+    if (followed == true) {
+        button.innerHTML = "Follow"
+        button.setAttribute("id", "follow_button");
+        button.setAttribute("onclick", `follow('${username}', false)`)
+        // decrease the follower count
+        follower_count.innerHTML--
+    }
+    // if the account is being followed:
+    else {
+        button.innerHTML = "Following"
+        button.setAttribute("id", "unfollow_button");
+        button.setAttribute("onclick", `follow('${username}', true)`)
+        follower_count.innerHTML++
+    }
 
     fetch(`/profile/${username}/follow`, {
         method: 'PUT',
