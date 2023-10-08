@@ -6,11 +6,14 @@ document.addEventListener('DOMContentLoaded', function() {
     // If the current url is the index, view_posts("all")
     if (currentPath === "/") {
         view_posts("all");
-
-    } else {
-        // If the current url contains a username, view_posts("username")
+    } else if (currentPath === "/following") {
+        view_posts("following");
+    }
+    else {
+        // If the current url contains a username, run view_posts("username")
         // Note: "substring(1)" removes the "/" from e.g. "/mike"
-        username = currentPath.substring(1)
+        const pathSegments = currentPath.split('/');
+        const username = pathSegments[pathSegments.length - 1];
         view_posts(username)
 
         // setup the follow button
@@ -21,10 +24,10 @@ document.addEventListener('DOMContentLoaded', function() {
   });
 
 
-function view_posts(username) {
+function view_posts(filter) {
 
     // If a username "all" is submitted, all posts will be sent by the API
-    fetch(`/view_posts/${username}`)
+    fetch(`/view_posts/${filter}`)
     .then(response => response.json())
     .then(posts => {
 
@@ -43,7 +46,7 @@ function view_posts(username) {
                     <div>
                         <div class="post_details">
                             <strong>
-                                <a href="/${post.user}">${post.user}</a>
+                                <a href="/profile/${post.user}">${post.user}</a>
                             </strong>
                             <div class="post_time">${post.time}</div>
                         </div>
@@ -114,7 +117,7 @@ function follow(username) {
 
     console.log(username)
 
-    fetch(`${username}/follow`, {
+    fetch(`/profile/${username}/follow`, {
         method: 'PUT',
     })
 }

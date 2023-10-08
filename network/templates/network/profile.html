@@ -7,12 +7,17 @@
 
     <button type="submit" id="follow_button">Follow</button>
 
-    <h3>Followers: {% for follower in followers %}
+    <h4>Followers {{ follower_count }}</h4>
+    <h4>Following {{ following_count }}</h4>
+
+    <!-- <h3>Followers: {% for follower in followers %}
                     {{ follower.follower }},
                     {% endfor %}
     </h3>
 
-    <h3>Following: {{ following }}</h3>
+    <h3>Following: {% for follower in following %}
+        {{ follower.user }},
+        {% endfor %} -->
 
     <div id="posts">
 

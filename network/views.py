@@ -16,6 +16,13 @@ def index(request):
     return render(request, "network/index.html", {
     })
 
+
+def following(request):
+
+    return render(request, "network/following.html", {
+    })
+
+
 def profile(request, username):
 
     user = User.objects.get(username=username)
@@ -29,7 +36,9 @@ def profile(request, username):
     return render(request, "network/profile.html", {
         "username": username,
         "followers":  followers,
-        "following": following_count,
+        "follower_count": follower_count,
+        "following": following,
+        "following_count": following_count,
     })
 
 
@@ -102,32 +111,57 @@ def new_post(request):
 
 @csrf_exempt
 @login_required
-def view_posts(request, username):
+def view_posts(request, filter):
 
-    if username == "all":
-        # Query for all posts
-        try:
-            posts = Post.objects.all()
-        except Post.DoesNotExist:
-            return JsonResponse({"error": "Email not found."}, status=404)
-
-    else:
-        # Query for selected posts by that username
-        try:
-            user = User.objects.get(username=username)
-            posts = Post.objects.filter(user=user)
-        except Post.DoesNotExist or User.DoesNotExist:
-            return JsonResponse({"error": "Email not found."}, status=404)
-
-    # Return posts contents
     if request.method == "GET":
+
+    # Options for the "filter" variable:
+    # "all" to view all posts
+    # "following" to see posts from people the user is following
+    # "{username}" to see posts from just that specific user
+
+        if filter == "all":
+            # Query for all posts
+            try:
+                posts = Post.objects.all()
+            except Post.DoesNotExist:
+                return JsonResponse({"error": "Email not found."}, status=404)
+
+        elif filter == "following":
+            # Query for posts from people that user is following
+            try:
+                # looks up current user
+                user = User.objects.get(username=request.user)
+                # looks up accounts which have the current user as their follower (i.e. people the user is following)
+                list = Follower.objects.filter(follower=user)
+
+                # Creates a list of users that the current user follows
+                following_list = []
+                for pair in list:
+                    following_list.append(pair.user)
+
+                # Filters for just posts from accounts the current user follows
+                posts = Post.objects.filter(user__in=following_list)
+            except Post.DoesNotExist:
+                return JsonResponse({"error": "Email not found."}, status=404)
+
+        else:
+            # Query for selected posts by that username
+            try:
+                user = User.objects.get(username=filter)
+                posts = Post.objects.filter(user=user)
+            except Post.DoesNotExist or User.DoesNotExist:
+                return JsonResponse({"error": "Email not found."}, status=404)
+
+        # Return posts contents as defined above
         return JsonResponse([post.serialize() for post in posts], safe=False)
 
-    # Post must be via GET or PUT
+        # Post must be via GET or PUT
     else:
         return JsonResponse({
             "error": "GET or PUT request required."
         }, status=400)
+
 
 
 @csrf_exempt
