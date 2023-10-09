@@ -123,7 +123,7 @@ def view_posts(request, filter):
         if filter == "all":
             # Query for all posts
             try:
-                posts = Post.objects.all()
+                posts = Post.objects.all().order_by('-time')
             except Post.DoesNotExist:
                 return JsonResponse({"error": "Email not found."}, status=404)
 
@@ -141,7 +141,7 @@ def view_posts(request, filter):
                     following_list.append(pair.user)
 
                 # Filters for just posts from accounts the current user follows
-                posts = Post.objects.filter(user__in=following_list)
+                posts = Post.objects.filter(user__in=following_list).order_by('-time')
             except Post.DoesNotExist:
                 return JsonResponse({"error": "Email not found."}, status=404)
 
@@ -149,7 +149,7 @@ def view_posts(request, filter):
             # Query for selected posts by that username
             try:
                 user = User.objects.get(username=filter)
-                posts = Post.objects.filter(user=user)
+                posts = Post.objects.filter(user=user).order_by('-time')
             except Post.DoesNotExist or User.DoesNotExist:
                 return JsonResponse({"error": "Email not found."}, status=404)
 
