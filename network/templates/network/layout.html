@@ -51,5 +51,25 @@
             {% block body %}
             {% endblock %}
         </main>
+
+        <!-- Pagination -->
+        <nav aria-label="...">
+            <ul class="pagination justify-content-center">
+              <li class="page-item disabled">
+                <span class="page-link">Previous</span>
+              </li>
+              <li class="page-item"><a class="page-link" href="?page=1">1</a></li>
+              <li class="page-item active"  href="?page=2" aria-current="page">
+                <span class="page-link">
+                  2
+                  <span class="sr-only">(current)</span>
+                </span>
+              </li>
+              <li class="page-item"><a class="page-link" href="?page=3">3</a></li>
+              <li class="page-item">
+                <a class="page-link" href="#">Next</a>
+              </li>
+            </ul>
+          </nav>
     </body>
 </html>

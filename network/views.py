@@ -5,6 +5,7 @@ from django.shortcuts import render
 from django.urls import reverse
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth.decorators import login_required
+from django.core.paginator import Paginator
 
 from .models import User, Post, Like, Follower
 from datetime import datetime
@@ -111,7 +112,7 @@ def new_post(request):
 
 @csrf_exempt
 @login_required
-def view_posts(request, filter):
+def view_posts(request, filter, page):
 
     if request.method == "GET":
 
@@ -124,8 +125,9 @@ def view_posts(request, filter):
             # Query for all posts
             try:
                 posts = Post.objects.all().order_by('-time')
+
             except Post.DoesNotExist:
-                return JsonResponse({"error": "Email not found."}, status=404)
+                return JsonResponse({"error": "Posts not found."}, status=404)
 
         elif filter == "following":
             # Query for posts from people that user is following
@@ -143,7 +145,7 @@ def view_posts(request, filter):
                 # Filters for just posts from accounts the current user follows
                 posts = Post.objects.filter(user__in=following_list).order_by('-time')
             except Post.DoesNotExist:
-                return JsonResponse({"error": "Email not found."}, status=404)
+                return JsonResponse({"error": "Posts not found."}, status=404)
 
         else:
             # Query for selected posts by that username
@@ -151,10 +153,14 @@ def view_posts(request, filter):
                 user = User.objects.get(username=filter)
                 posts = Post.objects.filter(user=user).order_by('-time')
             except Post.DoesNotExist or User.DoesNotExist:
-                return JsonResponse({"error": "Email not found."}, status=404)
+                return JsonResponse({"error": "Posts not found."}, status=404)
 
-        # Return posts contents as defined above
-        return JsonResponse([post.serialize() for post in posts], safe=False)
+        # Paginator divides the posts to 10 per page
+        paginator = Paginator(posts, 3)
+        data = paginator.get_page(page)
+
+        # Returns posts data as defined above
+        return JsonResponse([post.serialize() for post in data], safe=False)
 
         # Post must be via GET or PUT
     else:

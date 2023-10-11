@@ -2,19 +2,21 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Get the current path from the URL
     const currentPath = window.location.pathname;
+    // Get the current page from the URL (default is page = 1)
+    let page = new URLSearchParams(window.location.search).get("page") || 1;
 
     // If the current url is the index, view_posts("all")
     if (currentPath === "/") {
-        view_posts("all");
+        view_posts("all", page);
     } else if (currentPath === "/following") {
-        view_posts("following");
+        view_posts("following", page);
     }
     else {
         // If the current url contains a username, run view_posts("username")
         // Note: "substring(1)" removes the "/" from e.g. "/mike"
         const pathSegments = currentPath.split('/');
         const username = pathSegments[pathSegments.length - 1];
-        view_posts(username)
+        view_posts(username, page)
 
         // setup the follow button
 
@@ -41,10 +43,10 @@ document.addEventListener('DOMContentLoaded', function() {
   });
 
 
-function view_posts(filter) {
-
+function view_posts(filter, page) {
     // If a username "all" is submitted, all posts will be sent by the API
-    fetch(`/view_posts/${filter}`)
+
+    fetch(`/view_posts/${filter}/${page}`)
     .then(response => response.json())
     .then(posts => {
 
@@ -96,7 +98,7 @@ function view_posts(filter) {
                     else {
                         button.setAttribute("onclick", `like(${post.id}, false)`)
                         button.style.color = "transparent";
-                        button.style.textShadow = "0 0 0 grey";
+                        button.style.textShadow = "0 0 0 lightgray";
                     }
                 })
 
@@ -113,7 +115,7 @@ function like(post_id, liked) {
     if (liked == true) {
         like_counter.innerHTML--
         button.style.color = "transparent";
-        button.style.textShadow = "0 0 0 grey";
+        button.style.textShadow = "0 0 0 lightgray";
         button.setAttribute("onclick", `like(${post_id}, false)`)
         data = -1
     }
