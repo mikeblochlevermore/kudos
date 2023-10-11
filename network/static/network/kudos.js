@@ -161,3 +161,20 @@ function follow(username, followed) {
         method: 'PUT',
     })
 }
+
+function change_page(direction) {
+
+    // Get the current page from the URL (default is page = 1)
+    let current_page = parseInt(new URLSearchParams(window.location.search).get("page") || 1);
+
+    if (direction == 'next') {
+        page = current_page + 1
+        link = document.getElementById("next_page_link")
+    } else if (current_page > 1) {
+        page = current_page - 1
+        link = document.getElementById("prev_page_link")
+    }
+
+    // Updates the href to the selected link for the new page
+    link.setAttribute("href", `?page=${page}`)
+}

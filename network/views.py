@@ -156,7 +156,7 @@ def view_posts(request, filter, page):
                 return JsonResponse({"error": "Posts not found."}, status=404)
 
         # Paginator divides the posts to 10 per page
-        paginator = Paginator(posts, 3)
+        paginator = Paginator(posts, 1)
         data = paginator.get_page(page)
 
         # Returns posts data as defined above
