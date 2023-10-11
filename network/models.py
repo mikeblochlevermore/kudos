@@ -11,6 +11,7 @@ class Post(models.Model):
    content = models.CharField(max_length=264)
    time = models.DateTimeField(auto_now_add=True)
    like_count = models.IntegerField(default=0)
+   image_url = models.CharField(max_length=128)
 
    def serialize(self):
         return {
@@ -18,7 +19,8 @@ class Post(models.Model):
             "user": f"{self.user}",
             "content": self.content,
             "time": self.time.strftime("%b %d %Y, %I:%M %p"),
-            "like_count": self.like_count
+            "like_count": self.like_count,
+            "image_url": self.image_url
         }
 
 

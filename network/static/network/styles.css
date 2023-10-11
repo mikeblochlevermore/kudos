@@ -2,10 +2,6 @@
     margin: 0;
 }
 
-nav {
-    background-color: lightyellow;
-}
-
 #logo {
     border-radius: 10px;
     font-size: 50px;
@@ -19,12 +15,52 @@ main {
     margin: 20px;
 }
 
+.new_post_form {
+    display: block;
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+    padding: 40px;
+    width: 430px;
+}
+
+.create_form {
+    display: grid;
+    gap: 10px;
+}
+
+.create_form input {
+    padding: 12px;
+    border-radius: 10px;
+}
+
+.submit_button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    outline: none;
+    margin-top: 6px;
+}
+
+#content_input {
+    height: 120px;
+}
+
+.new_post_wrapper {
+    display: flex;
+    justify-content: center;
+}
+
 .post {
+    display: flex;
+    justify-content: center;
+}
+
+.post_wrapper {
     display: flex;
     padding: 20px;
     margin-top: 20px;
     gap: 10px;
-    border: 1px solid grey;
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+    width: 430px;
 }
 
 .post_details {
@@ -40,6 +76,13 @@ main {
 .post_content {
     padding-bottom: 10px;
 }
+
+.post_image {
+    width: 300px;
+    height: 200px;
+    object-fit: cover;
+    overflow: hidden;
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;}
 
 .like_display {
     display: flex;
@@ -65,7 +108,8 @@ main {
 }
 
 #follow_button {
-    background-color: lightgreen;
+    background-color: #007bff;
+    color: white;
     border-radius: 10px;
     width: 100px;
     height: 35px;

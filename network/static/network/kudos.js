@@ -59,24 +59,27 @@ function view_posts(filter, page) {
             element.innerHTML =
                 `
                 <div class="post">
-                    <div class="avatar">
-                        <h1>❍</h1>
-                    </div>
-                    <div>
-                        <div class="post_details">
-                            <strong>
-                                <a href="/profile/${post.user}">${post.user}</a>
-                            </strong>
-                            <div class="post_time">${post.time}</div>
+                    <div class="post_wrapper">
+                        <div class="avatar">
+                            <h1>❍</h1>
                         </div>
-                        <div class="post_content">${post.content}</div>
-                        <div class="like_display">
-                            <div>
-                                <button id="like_button_${post.id}">🙌</button>
+                        <div>
+                            <div class="post_details">
+                                <strong>
+                                    <a href="/profile/${post.user}">${post.user}</a>
+                                </strong>
+                                <div class="post_time">${post.time}</div>
                             </div>
-                            <div>
-                                <p id="like_count_${post.id}">${post.like_count}</p>
-                            <div>
+                            <div class="post_content">${post.content}</div>
+                            <div><img class="post_image" src=${post.image_url}></div>
+                            <div class="like_display">
+                                <div>
+                                    <button id="like_button_${post.id}">🙌</button>
+                                </div>
+                                <div>
+                                    <p id="like_count_${post.id}">${post.like_count}</p>
+                                <div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -175,6 +178,6 @@ function change_page(direction) {
         link = document.getElementById("prev_page_link")
     }
 
-    // Updates the href to the selected link for the new page
+    // Updates the href to the selected link for the new page number
     link.setAttribute("href", `?page=${page}`)
 }

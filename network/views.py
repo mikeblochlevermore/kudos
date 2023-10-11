@@ -98,11 +98,13 @@ def register(request):
 def new_post(request):
     if request.method == "POST":
         content = request.POST["content"]
+        image_url = request.POST["image_url"]
 
         new_post = Post(
             content=content,
             user=request.user,
             time=datetime.now(),
+            image_url=image_url
         )
 
         new_post.save()
@@ -156,7 +158,7 @@ def view_posts(request, filter, page):
                 return JsonResponse({"error": "Posts not found."}, status=404)
 
         # Paginator divides the posts to 10 per page
-        paginator = Paginator(posts, 1)
+        paginator = Paginator(posts, 10)
         data = paginator.get_page(page)
 
         # Returns posts data as defined above
