@@ -21,9 +21,16 @@ class Post(models.Model):
    like_count = models.IntegerField(default=0)
    image_url = models.CharField(max_length=128)
 
-   def serialize(self):
-
+   def serialize(self, current_user):
+        # Includes an image of the user for each post
         bio_image = User_bio.objects.get(user=self.user).bio_image_url
+
+        # Checks to see if the current user has already liked that post and sets a true/false status
+        like = Like.objects.filter(post=self.id, user=current_user)
+        if like.exists():
+            liked = True
+        else:
+            liked = False
 
         return {
             "id": self.id,
@@ -32,14 +39,15 @@ class Post(models.Model):
             "content": self.content,
             "time": self.time.strftime("%b %d %Y, %I:%M %p"),
             "like_count": self.like_count,
-            "image_url": self.image_url
+            "image_url": self.image_url,
+            "liked": liked
         }
 
 
 class Like(models.Model):
    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="like")
    post = models.ForeignKey(Post, on_delete=models.CASCADE, related_name="like")
-   time = models.DateTimeField()
+   time = models.DateTimeField(auto_now_add=True)
 
    def serialize(self):
         return {

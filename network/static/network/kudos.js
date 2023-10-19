@@ -2,6 +2,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Get the current path from the URL
     const currentPath = window.location.pathname;
+
     // Get the current page from the URL (default is page = 1)
     let page = new URLSearchParams(window.location.search).get("page") || 1;
 
@@ -59,6 +60,8 @@ function view_posts(filter, page) {
       // Loop through each post and create HTML elements
       posts.forEach(post => {
 
+        console.log(post)
+
             var element = document.createElement("div");
             element.innerHTML =
                 `
@@ -84,7 +87,11 @@ function view_posts(filter, page) {
                             </div>
                             <div class="like_display">
                                 <div>
-                                    <button id="like_button_${post.id}">🙌</button>
+                                    <button
+                                        onclick="like(${post.id}, ${post.liked})"
+                                        id="like_button_${post.id}">
+                                        🙌
+                                    </button>
                                 </div>
                                 <div>
                                     <p id="like_count_${post.id}">${post.like_count}</p>
@@ -96,25 +103,18 @@ function view_posts(filter, page) {
                 `;
                 postList.append(element);
 
-                // Fetches whether the post is already liked by the user (true / false)
-                fetch(`/like/${post.id}`)
-                .then(response => response.json())
-                .then(liked => {
-                    button = document.getElementById(`like_button_${post.id}`)
+                // Set the like button styling based on whether the post is already liked by the current user
+                // Onclick triggers the like(post.id, post.liked) function, passing on the id and the true/false status of previous likes
 
-                    if (liked == true) {
-                        // onclick the button will trigger the like function, passing on the true/false status of previous likes
-                        button.setAttribute("onclick", `like(${post.id}, true)`)
-                        button.style.color = "black";
-                        button.style.textShadow = "none";
-                    }
-                    else {
-                        button.setAttribute("onclick", `like(${post.id}, false)`)
-                        button.style.color = "transparent";
-                        button.style.textShadow = "0 0 0 lightgray";
-                    }
-                })
-
+                button = document.getElementById(`like_button_${post.id}`)
+                if (post.liked == true) {
+                    button.style.color = "black";
+                    button.style.textShadow = "none";
+                }
+                else {
+                    button.style.color = "transparent";
+                    button.style.textShadow = "0 0 0 lightgray";
+                }
           })
       })
 }
@@ -140,7 +140,9 @@ function like(post_id, liked) {
         button.setAttribute("onclick", `like(${post_id}, true)`)
         data = 1
     }
-    // sends a PUT request to the API to update the like count via the data above (+1 or -1)
+    // sends a PUT request to the API:
+    // - updates the like count via the data above (+1 or -1)
+    // - saves new likes or deletes for unlikes
     fetch(`/like/${post_id}`, {
         method: 'PUT',
         body: JSON.stringify({

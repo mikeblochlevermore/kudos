@@ -168,7 +168,7 @@ def view_posts(request, filter, page):
         data = paginator.get_page(page)
 
         # Returns posts data as defined above
-        return JsonResponse([post.serialize() for post in data], safe=False)
+        return JsonResponse([post.serialize(request.user) for post in data], safe=False)
 
         # Post must be via GET or PUT
     else:
@@ -181,16 +181,6 @@ def view_posts(request, filter, page):
 @csrf_exempt
 @login_required
 def like(request, post_id):
-
-        if request.method == "GET":
-            post = Post.objects.get(id=post_id)
-            # Searches for a like already made by the current user on this post
-            like = Like.objects.filter(post=post, user=request.user)
-
-            if like.exists():
-                return JsonResponse(True, safe=False)
-            else:
-                return JsonResponse(False, safe=False)
 
         if request.method == "PUT":
             post = Post.objects.get(id=post_id)
@@ -205,7 +195,7 @@ def like(request, post_id):
                 post.like_count = post.like_count + data["like_count"]
                 post.save()
 
-                # ADD A EXPECT TEST HERE TO CHECK THE DATA INCLUDES THE RIGHT INFO
+                # TODO: ADD AN EXPECT TEST HERE TO CHECK THE DATA INCLUDES THE RIGHT INFO
 
             else:
                 # Adds a new like in the Like model
