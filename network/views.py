@@ -7,7 +7,7 @@ from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator
 
-from .models import User, Post, Like, Follower
+from .models import User, User_bio, Post, Like, Follower
 from datetime import datetime
 import json
 
@@ -34,12 +34,15 @@ def profile(request, username):
     following = Follower.objects.filter(follower=user)
     following_count = following.count()
 
+    bio = User_bio.objects.get(user=user)
+
     return render(request, "network/profile.html", {
         "username": username,
         "followers":  followers,
         "follower_count": follower_count,
         "following": following,
         "following_count": following_count,
+        "bio": bio,
     })
 
 

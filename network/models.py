@@ -5,6 +5,14 @@ from django.db import models
 class User(AbstractUser):
     pass
 
+class User_bio(models.Model):
+   user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="bio")
+   bio = models.CharField(max_length=264, default=None)
+   bio_image_url = models.CharField(max_length=264, default=None)
+
+   def __str__(self):
+        return f"{self.user}, {self.bio}, , {self.bio_image_url}"
+
 
 class Post(models.Model):
    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="post")

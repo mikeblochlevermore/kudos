@@ -3,27 +3,47 @@
 
 {% block body %}
 
-    <h1>{{ username }}</h1>
-
-    <!-- Follow / unfollow button if not the current user's profile page -->
-    {% if user.username != username %}
+<div>
+    <div id="profile_wrapper">
+        <div>
+            <img id="bio_image" src="{{ bio.bio_image_url }}">
+        </div>
+        <div>
+            <h1>{{ username }}</h1>
+            <div id="follow_details">
+                <div>
+                    <strong id="follower_count">{{ follower_count }}</strong>
+                    <p>Followers</p>
+                </div>
+                <div>
+                    <strong>{{ following_count }}</strong>
+                    <p>Following</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="bio_text_wrapper">
+        <p id="bio_text">{{ bio.bio }}</p>
+    </div>
+    <div id="bio_text_wrapper">
+        {% if user.username == username %}
+        <button id="follow_button" href="{% url 'logout' %}">Log Out</button>
+        {% else %}
+        <!-- Follow / unfollow button if not the current user's profile page -->
         <div id="follow_button_div">
             <button type="submit" id="">Follow</button>
         </div>
-    {% endif %}
-
-    <div id="follow_details">
-        <div>
-            <strong id="follower_count">{{ follower_count }}</strong>
-            <p>Followers</p>
-        </div>
-        <div>
-            <strong>{{ following_count }}</strong>
-            <p>Following</p>
-        </div>
     </div>
 
-    <a class="nav-link" href="{% url 'logout' %}">Log Out</a>
+    {% endif %}
+</div>
+
+
+
+
+    {% if user.username != username %}
+        
+    {% endif %}
 
     <div id="posts">
 

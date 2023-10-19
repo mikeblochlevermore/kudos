@@ -2,11 +2,8 @@
     margin: 0;
 }
 
-
-
 #logo {
-    border-radius: 10px;
-    font-size: 50px;
+    font-size: 30px;
     text-decoration: none;
     color: black;
     padding: 10px;
@@ -15,8 +12,11 @@
 }
 
 header {
-    text-align: center;
+    display: flex;
+    justify-content: center;
     background-color: yellow;
+    height: 80px;
+    align-items: center;
 }
 
 main {
@@ -50,6 +50,10 @@ main {
 
 #content_input {
     height: 120px;
+}
+
+#posts {
+    margin-bottom: 110px;
 }
 
 .new_post_wrapper {
@@ -90,7 +94,8 @@ main {
     height: 200px;
     object-fit: cover;
     overflow: hidden;
-    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;}
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+}
 
 .like_display {
     display: flex;
@@ -110,6 +115,33 @@ main {
     text-shadow: 0 0 0 grey;
 }
 
+#profile_wrapper {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    justify-content: center;
+}
+
+#bio_text_wrapper {
+    text-align: center;
+    display: flex;
+    justify-content: center;
+}
+
+#bio_text {
+    margin-top: 20px;
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+    width: 430px;
+    padding: 20px;
+}
+
+#bio_image {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    object-fit: cover;
+    overflow: hidden;
+}
 
 #follow_button_div {
     margin-bottom: 20px;;
