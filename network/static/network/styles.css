@@ -75,6 +75,13 @@ main {
     width: 430px;
 }
 
+.avatar {
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
 .post_details {
     display: flex;
     gap: 10px;
@@ -122,6 +129,13 @@ main {
     justify-content: center;
 }
 
+#edit_button {
+    position: absolute;
+    margin-left: 390px;
+    margin-top: 25px;
+
+}
+
 #bio_text_wrapper {
     text-align: center;
     display: flex;
@@ -141,6 +155,16 @@ main {
     border-radius: 50%;
     object-fit: cover;
     overflow: hidden;
+}
+
+#logout_button {
+    background-color: #007bff;
+    color: white;
+    border-radius: 10px;
+    width: 100px;
+    padding: 6px;
+    text-decoration: none;
+    text-align: center;
 }
 
 #follow_button_div {

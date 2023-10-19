@@ -44,7 +44,11 @@ document.addEventListener('DOMContentLoaded', function() {
 
 
 function view_posts(filter, page) {
-    // If a username "all" is submitted, all posts will be sent by the API
+
+    // Options for the "filter" variable:
+    // "all" to view all posts
+    // "following" to see posts from people the user is following
+    // "{username}" to see posts from just that specific user
 
     fetch(`/view_posts/${filter}/${page}`)
     .then(response => response.json())
@@ -60,18 +64,24 @@ function view_posts(filter, page) {
                 `
                 <div class="post">
                     <div class="post_wrapper">
-                        <div class="avatar">
-                            <h1>❍</h1>
+                        <div>
+                            <img class="avatar" src="${post.bio_image}">
                         </div>
                         <div>
                             <div class="post_details">
                                 <strong>
                                     <a href="/profile/${post.user}">${post.user}</a>
                                 </strong>
-                                <div class="post_time">${post.time}</div>
+                                <div class="post_time">
+                                    ${post.time}
+                                </div>
                             </div>
-                            <div class="post_content">${post.content}</div>
-                            <div><img class="post_image" src=${post.image_url}></div>
+                            <div class="post_content">
+                                ${post.content}
+                            </div>
+                            <div>
+                                <img class="post_image" src=${post.image_url}>
+                            </div>
                             <div class="like_display">
                                 <div>
                                     <button id="like_button_${post.id}">🙌</button>

@@ -22,9 +22,13 @@ class Post(models.Model):
    image_url = models.CharField(max_length=128)
 
    def serialize(self):
+
+        bio_image = User_bio.objects.get(user=self.user).bio_image_url
+
         return {
             "id": self.id,
             "user": f"{self.user}",
+            "bio_image": bio_image,
             "content": self.content,
             "time": self.time.strftime("%b %d %Y, %I:%M %p"),
             "like_count": self.like_count,

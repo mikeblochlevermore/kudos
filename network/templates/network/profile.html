@@ -24,26 +24,19 @@
     </div>
     <div id="bio_text_wrapper">
         <p id="bio_text">{{ bio.bio }}</p>
+        <a id="edit_button" href="{% url 'logout' %}"><i class="fa-solid fa-pen-to-square"></i></a>
     </div>
     <div id="bio_text_wrapper">
         {% if user.username == username %}
-        <button id="follow_button" href="{% url 'logout' %}">Log Out</button>
+        <a id="logout_button" href="{% url 'logout' %}">Log Out</a>
         {% else %}
         <!-- Follow / unfollow button if not the current user's profile page -->
         <div id="follow_button_div">
             <button type="submit" id="">Follow</button>
         </div>
+        {% endif %}
     </div>
-
-    {% endif %}
 </div>
-
-
-
-
-    {% if user.username != username %}
-        
-    {% endif %}
 
     <div id="posts">
 
