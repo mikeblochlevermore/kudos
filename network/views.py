@@ -96,6 +96,9 @@ def register(request):
 
 
 def new_post(request):
+    if request.method == "GET":
+        return render(request, "network/new_post.html")
+
     if request.method == "POST":
         content = request.POST["content"]
         image_url = request.POST["image_url"]

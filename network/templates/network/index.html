@@ -3,24 +3,14 @@
 
 {% block body %}
 
-    {% if user.is_authenticated %}
-    <!-- CREATE A NEW POST -->
-    <div class="new_post_wrapper">
-        <div class="new_post_form">
-            <h2>🙌 New Achievement</h2>
-
-            <form action="{% url 'new_post' %}" method="POST" class="create_form">
-                {% csrf_token %}
-                <input id="content_input" type="text", name="content", placeholder="Share your success", required>
-                <input id="image_input" type="text", name="image_url", placeholder="Post an Image", required>
-                <input class="submit_button" type="submit">
-            </form>
-        </div>
-    </div>
-    {% endif %}
+{% if user.is_authenticated %}
     <!-- POSTS -->
     <div id="posts">
-
     </div>
+{% else %}
+    <a class="nav-link" href="{% url 'login' %}">Log In</a>
+    <a class="nav-link" href="{% url 'register' %}">Register</a>
+{% endif %}
+
 
 {% endblock %}

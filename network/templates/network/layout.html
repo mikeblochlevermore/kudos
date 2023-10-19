@@ -9,60 +9,41 @@
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Work+Sans&display=swap" rel="stylesheet">
+        <script src="https://kit.fontawesome.com/ba3c673c5b.js" crossorigin="anonymous"></script>
         {% block script %}
         <script src="{% static 'network/kudos.js' %}"></script>
         {% endblock %}
     </head>
     <body>
 
-        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <header>
             <a id="logo" href="/">🙌 kudos</a>
-
-            <div>
-              <ul class="navbar-nav mr-auto">
-                {% if user.is_authenticated %}
-                    <li class="nav-item">
-                        <a class="nav-link" href="/profile/{{ user.username }}"><strong>{{ user.username }}</strong></a>
-                    </li>
-                {% endif %}
-                <li class="nav-item">
-                  <a class="nav-link" href="{% url 'index' %}">All Posts</a>
-                </li>
-                {% if user.is_authenticated %}
-                    <li class="nav-item">
-                        <a class="nav-link" href="{% url 'following' %}">Following</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{% url 'logout' %}">Log Out</a>
-                    </li>
-                {% else %}
-                    <li class="nav-item">
-                        <a class="nav-link" href="{% url 'login' %}">Log In</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{% url 'register' %}">Register</a>
-                    </li>
-                {% endif %}
-              </ul>
-            </div>
-          </nav>
+        </header>
 
         <main>
             {% block body %}
             {% endblock %}
         </main>
 
-        <!-- Pagination -->
-
-        <nav aria-label="...">
-            <ul class="pagination justify-content-center">
-              <li class="page-item">
-                <a class="page-link" href="?page=1" onclick="change_page('prev')" id="prev_page_link">Previous</a>
-              </li>
-              <li class="page-item">
-                <a class="page-link" href="?page=2" onclick="change_page('next')" id="next_page_link">Next</a>
-              </li>
-            </ul>
-          </nav>
+        <nav>
+          <div>
+            <a class="page_link" href="?page=1" onclick="change_page('prev')" id="prev_page_link"><i class="fa-solid fa-chevron-left"></i></a>
+          </div>
+          <div id="home_button">
+            <a class="nav-link" href="{% url 'following' %}"><i class="fa-solid fa-house"></i></a>
+          </div>
+          <div id="add_button">
+            <a class="nav_link" href="{% url 'new_post' %}"><i class="fa-solid fa-square-plus"></i></a>
+          </div>
+          <div id="explore_button">
+            <a class="nav-link" href="{% url 'index' %}"><i class="fa-solid fa-earth-americas"></i></a>
+          </div>
+          <div>
+            <a class="nav-link" href="/profile/{{ user.username }}"><i class="fa-solid fa-circle-user"></i></a>
+          </div>
+          <div>
+            <a class="page_link" href="?page=2" onclick="change_page('next')" id="next_page_link"><i class="fa-solid fa-chevron-right"></i></a>
+          </div>
+        </nav>
     </body>
 </html>
