@@ -60,8 +60,6 @@ function view_posts(filter, page) {
       // Loop through each post and create HTML elements
       posts.forEach(post => {
 
-        console.log(post)
-
             var element = document.createElement("div");
             element.innerHTML =
                 `
@@ -80,7 +78,8 @@ function view_posts(filter, page) {
                                 </div>
                             </div>
                             <div class="post_content">
-                                ${post.content}
+                                <div id="post_text_${post.id}">${post.content}</div>
+                                <div id="edit_div_${post.id}"></div>
                             </div>
                             <div>
                                 <img class="post_image" src=${post.image_url}>
@@ -100,6 +99,7 @@ function view_posts(filter, page) {
                         </div>
                     </div>
                 </div>
+
                 `;
                 postList.append(element);
 
@@ -115,9 +115,56 @@ function view_posts(filter, page) {
                     button.style.color = "transparent";
                     button.style.textShadow = "0 0 0 lightgray";
                 }
+
+                // If the user owns the post (true/false from backend via "post.can_edit"), display an edit
+                edit_div = document.getElementById(`edit_div_${post.id}`)
+                if (post.can_edit == true) {
+                    edit_div.innerHTML =
+                    `<button id="edit_button" onclick="edit(${post.id})">
+                        <i class="fa-solid fa-pen-to-square"></i>
+                    </button>`
+                }
           })
       })
 }
+
+
+function edit(post_id) {
+    text = document.getElementById(`post_text_${post_id}`)
+    old_content = text.textContent
+    // Change the text to a textarea, pre-populated with the current content
+    text.innerHTML =
+        `<textarea id="editing_textarea">${old_content}</textarea>`
+
+    // Change the edit button to a save button
+    edit_div = document.getElementById(`edit_div_${post_id}`)
+    edit_div.innerHTML =
+    `<button id="save_button">
+        <i class="fa-solid fa-circle-check"></i>
+    </button>`
+
+    let save_button = document.getElementById("save_button")
+    // On clicking save, change the text on the post to the new content, then save to the server
+    save_button.addEventListener("click", () => {
+        new_content = text.querySelector("textarea").value
+        text.innerHTML = `${new_content}`
+
+        // Change the save button back to the edit button
+        edit_div.innerHTML =
+        `<button id="edit_button" onclick="edit(${post_id})">
+            <i class="fa-solid fa-pen-to-square"></i>
+        </button>`
+
+        fetch("/new_post", {
+            method: 'PUT',
+            body: JSON.stringify({
+                post_id: post_id,
+                content: new_content
+            }),
+        })
+    })
+}
+
 
 function like(post_id, liked) {
 
@@ -151,6 +198,7 @@ function like(post_id, liked) {
     })
 }
 
+
 function follow(username, followed) {
 
     const follow_button_div = document.getElementById("follow_button_div");
@@ -176,6 +224,7 @@ function follow(username, followed) {
         method: 'PUT',
     })
 }
+
 
 function change_page(direction) {
 

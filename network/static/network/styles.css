@@ -94,6 +94,7 @@ main {
 
 .post_content {
     padding-bottom: 10px;
+    display: flex;
 }
 
 .post_image {
@@ -130,10 +131,24 @@ main {
 }
 
 #edit_button {
-    position: absolute;
-    margin-left: 390px;
-    margin-top: 25px;
+    outline: none;
+    border: none;
+    background-color: inherit;
+    color: #007bff;
+}
 
+#save_button {
+    outline: none;
+    border: none;
+    background-color: inherit;
+    color: #007bff;
+}
+
+#editing_textarea {
+    width: 300px;
+    border-radius: 10px;
+    border: 1px solid #007bff;
+    padding: 10px;
 }
 
 #bio_text_wrapper {

@@ -32,6 +32,12 @@ class Post(models.Model):
         else:
             liked = False
 
+        # If the current user owns the post, send a token that they can edit the post
+        if self.user == current_user:
+            can_edit = True
+        else:
+            can_edit = False
+
         return {
             "id": self.id,
             "user": f"{self.user}",
@@ -40,7 +46,8 @@ class Post(models.Model):
             "time": self.time.strftime("%b %d %Y, %I:%M %p"),
             "like_count": self.like_count,
             "image_url": self.image_url,
-            "liked": liked
+            "liked": liked,
+            "can_edit": can_edit,
         }
 
 

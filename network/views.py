@@ -98,6 +98,8 @@ def register(request):
         return render(request, "network/register.html")
 
 
+@csrf_exempt
+@login_required
 def new_post(request):
     if request.method == "GET":
         return render(request, "network/new_post.html")
@@ -115,6 +117,20 @@ def new_post(request):
 
         new_post.save()
         return HttpResponseRedirect(reverse("index"))
+
+    if request.method == "PUT":
+        data = json.loads(request.body)
+        post_id = data["post_id"]
+        post = Post.objects.get(id=post_id)
+
+        # Double-check the post is owned by the current user
+        if post.user == request.user:
+
+            post.content = data["content"]
+            post.save()
+            return HttpResponse(status=204)
+        else:
+            return JsonResponse({"error": "Current user lacks permission to edit"}, status=500)
 
 
 
