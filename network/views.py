@@ -133,6 +133,22 @@ def new_post(request):
             return JsonResponse({"error": "Current user lacks permission to edit"}, status=500)
 
 
+@csrf_exempt
+@login_required
+def edit_bio(request):
+
+    if request.method == "PUT":
+        bio = User_bio.objects.get(user=request.user)
+        data = json.loads(request.body)
+
+        bio.bio=data["bio_text"]
+        bio.bio_image_url=data["bio_image"]
+        bio.save()
+        return HttpResponse(status=204)
+
+    else:
+        return JsonResponse({"error": "Current user lacks permission to edit"}, status=500)
+
 
 @csrf_exempt
 @login_required

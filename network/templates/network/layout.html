@@ -27,21 +27,21 @@
 
         <nav>
           <div>
-            <a class="page_link" href="?page=1" onclick="change_page('prev')" id="prev_page_link"><i class="fa-solid fa-chevron-left"></i></a>
+            <a class="nav_item" href="?page=1" onclick="change_page('prev')" id="prev_page_link"><i class="fa-solid fa-chevron-left"></i></a>
           </div>
-          <div id="home_button">
-            <a class="nav-link" href="{% url 'following' %}"><i class="fa-solid fa-house"></i></a>
+          <div class="nav_item">
+            <a href="{% url 'following' %}"><i class="fa-solid fa-house"></i></a>
           </div>
-          <div id="add_button">
-            <a class="nav_link" href="{% url 'new_post' %}"><i class="fa-solid fa-square-plus"></i></a>
+          <div class="nav_item">
+            <a href="{% url 'new_post' %}"><i class="fa-solid fa-square-plus"></i></a>
           </div>
-          <div id="explore_button">
-            <a class="nav-link" href="{% url 'index' %}"><i class="fa-solid fa-earth-americas"></i></a>
+          <div class="nav_item">
+            <a href="{% url 'index' %}"><i class="fa-solid fa-earth-americas"></i></a>
           </div>
-          <div>
-            <a class="nav-link" href="/profile/{{ user.username }}"><i class="fa-solid fa-circle-user"></i></a>
+          <div class="nav_item">
+            <a href="/profile/{{ user.username }}"><i class="fa-solid fa-circle-user"></i></a>
           </div>
-          <div>
+          <div class="nav_item">
             <a class="page_link" href="?page=2" onclick="change_page('next')" id="next_page_link"><i class="fa-solid fa-chevron-right"></i></a>
           </div>
         </nav>

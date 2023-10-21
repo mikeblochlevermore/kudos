@@ -20,6 +20,13 @@
                     <p>Following</p>
                 </div>
             </div>
+            {% if user.username == username %}
+            <div id="edit_bio_div">
+                <button id="edit_bio_button" onclick="edit_bio()">
+                    <i class="fa-solid fa-pen-to-square"></i> Edit Bio
+                </button>
+            </div>
+            {% endif %}
         </div>
     </div>
     <div id="bio_text_wrapper">
@@ -28,6 +35,7 @@
     <div id="bio_text_wrapper">
         {% if user.username == username %}
         <a id="logout_button" href="{% url 'logout' %}">Log Out</a>
+
         {% else %}
         <!-- Follow / unfollow button if not the current user's profile page -->
         <div id="follow_button_div">

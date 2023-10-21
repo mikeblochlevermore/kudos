@@ -166,6 +166,57 @@ function edit(post_id) {
 }
 
 
+function edit_bio() {
+
+    // Lookup current bio text and image
+    old_bio_text = document.getElementById("bio_text").textContent
+    old_bio_image = document.getElementById("bio_image").src
+
+    // Change the text to a textarea, pre-populated with the current content
+    bio_text.innerHTML =
+        `<div>Change Bio</div>
+        <textarea id="editing_bio_text">${old_bio_text}</textarea>
+        <div>Change Photo</div>
+        <textarea id="editing_bio_image">${old_bio_image}</textarea>`
+
+    // Change the edit button to a save button
+    edit_bio_div = document.getElementById("edit_bio_div")
+    edit_bio_div.innerHTML =
+    `<button id="save_button">
+        <i class="fa-solid fa-circle-check"></i> Save
+    </button>`
+
+    let save_button = document.getElementById("save_button")
+    // On clicking save, change the text on the post to the new content, then save to the server
+    save_button.addEventListener("click", () => {
+
+        // Get the textarea inputs for new bio text and bio image
+        new_bio_text = document.getElementById("editing_bio_text").value
+        new_bio_image = document.getElementById("editing_bio_image").value
+
+        console.log(new_bio_text, new_bio_image)
+        // Update the bio text with the new content
+        bio_text.innerHTML = `${new_bio_text}`
+
+        // Update the bio image with the new content
+        document.getElementById("bio_image").src = new_bio_image
+
+        // Change the save button back to the edit button
+        edit_bio_div.innerHTML =
+        `<button id="edit_bio_button" onclick="edit_bio()">
+            <i class="fa-solid fa-pen-to-square"></i> Edit Bio
+        </button>`
+
+        fetch("/edit_bio", {
+            method: 'PUT',
+            body: JSON.stringify({
+                "bio_text": new_bio_text,
+                "bio_image": new_bio_image,
+            }),
+        })
+})
+}
+
 function like(post_id, liked) {
 
     like_counter = document.getElementById(`like_count_${post_id}`)

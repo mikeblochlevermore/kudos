@@ -130,14 +130,7 @@ main {
     justify-content: center;
 }
 
-#edit_button {
-    outline: none;
-    border: none;
-    background-color: inherit;
-    color: #007bff;
-}
-
-#save_button {
+#edit_button, #edit_bio_button, #save_button {
     outline: none;
     border: none;
     background-color: inherit;
