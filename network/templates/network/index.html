@@ -6,11 +6,115 @@
 {% if user.is_authenticated %}
     <!-- POSTS -->
     <div id="posts">
+
     </div>
 {% else %}
-    <a class="nav-link" href="{% url 'login' %}">Log In</a>
-    <a class="nav-link" href="{% url 'register' %}">Register</a>
+
+<div id="welcome_text">
+    <h1>Share the Good News!</h1>
+    <h4>Give kudos to people's successes</h4>
+    <h1>🙌</h1>
+</div>
+
+<div id="login_wrapper">
+    <div id="login">
+        {% if message %}
+            <div>{{ message }}</div>
+        {% endif %}
+
+        <form action="{% url 'login' %}" method="post">
+            {% csrf_token %}
+            <div class="form-group">
+                <input autofocus class="form-control" type="text" name="username" placeholder="Username">
+            </div>
+            <div class="form-group">
+                <input class="form-control" type="password" name="password" placeholder="Password">
+            </div>
+            <div class="form-group">
+                <input id="login_button" type="submit" value="Login">
+            </div>
+            <div>
+                Don't have an account? <a href="{% url 'register' %}">Register here.</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div id="index_screen">
+    <!-- EXAMPLE POSTS -->
+    <div class="post">
+        <div class="post_wrapper">
+            <div>
+                <img class="avatar" src="https://www.goodnewsnetwork.org/wp-content/uploads/2017/12/Geri-Malibu-blue-dress-2-cropped-324x235.jpeg">
+            </div>
+            <div>
+                <div class="post_details">
+                    <strong>
+                        <a >GNN</a>
+                    </strong>
+                    <div class="post_time">
+                        21st Oct 2023, 11:59
+                    </div>
+                </div>
+                <div class="post_content">
+                    <div>🌳 Wild Mushroom Harvest Helps Keep Trees Standing in Mozambique</div>
+                </div>
+                <div>
+                    <img class="post_image" src="https://www.goodnewsnetwork.org/wp-content/uploads/2023/10/IMG_20230426_134109-2-1200x800-1-e1697200487131.jpg">
+                </div>
+                <div class="like_display">
+                    <div>
+                        <button
+                            id="like_button_0">
+                            🙌
+                        </button>
+                    </div>
+                    <div>
+                        <p id="like_count_0">214</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="post">
+        <div class="post_wrapper">
+            <div>
+                <img class="avatar" src="https://images.pexels.com/photos/3812720/pexels-photo-3812720.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2">
+            </div>
+            <div>
+                <div class="post_details">
+                    <strong>
+                        <a>Andrea</a>
+                    </strong>
+                    <div class="post_time">
+                        21st Oct 2023, 12:23
+                    </div>
+                </div>
+                <div class="post_content">
+                    <div>Meet Mr Scruff, we found him abandoned and are giving him a good home! 😿🥰</div>
+                </div>
+                <div>
+                    <img class="post_image" src="https://images.pexels.com/photos/7224656/pexels-photo-7224656.jpeg">
+                </div>
+                <div class="like_display">
+                    <div>
+                        <button
+                            id="like_button_0">
+                            🙌
+                        </button>
+                    </div>
+                    <div>
+                        <p id="like_count_0">564</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
 {% endif %}
+
 
 
 {% endblock %}

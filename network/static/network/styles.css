@@ -19,8 +19,29 @@ header {
     align-items: center;
 }
 
+#welcome_text {
+    text-align: center;
+}
+
 main {
     margin: 20px;
+}
+
+#index_screen {
+    margin-bottom: 110px;
+}
+
+#login_wrapper {
+    display: flex;
+    justify-content: center;
+}
+
+#login {
+    padding: 20px;
+    margin-top: 20px;
+    gap: 10px;
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+    width: 430px;
 }
 
 .new_post_form {
@@ -165,7 +186,7 @@ main {
     overflow: hidden;
 }
 
-#logout_button {
+#logout_button, #login_button {
     background-color: #007bff;
     color: white;
     border-radius: 10px;
@@ -173,6 +194,8 @@ main {
     padding: 6px;
     text-decoration: none;
     text-align: center;
+    border: none;
+    outline: none;
 }
 
 #follow_button_div {
