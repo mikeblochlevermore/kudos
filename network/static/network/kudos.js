@@ -6,17 +6,20 @@ document.addEventListener('DOMContentLoaded', function() {
     // Get the current page from the URL (default is page = 1)
     let page = new URLSearchParams(window.location.search).get("page") || 1;
 
-    // If the current url is the index, view_posts("all")
+    // If the current url is the index, run view_posts("all")
     if (currentPath === "/") {
         view_posts("all", page);
+
+    // If the current url is following, run view_posts("following")
     } else if (currentPath === "/following") {
         view_posts("following", page);
     }
     else {
         // If the current url contains a username, run view_posts("username")
-        // Note: "substring(1)" removes the "/" from e.g. "/mike"
+        // These lines extract the username from the url:
         const pathSegments = currentPath.split('/');
         const username = pathSegments[pathSegments.length - 1];
+
         view_posts(username, page)
 
         // setup the follow button
@@ -217,6 +220,7 @@ function edit_bio() {
 })
 }
 
+
 function like(post_id, liked) {
 
     like_counter = document.getElementById(`like_count_${post_id}`)
@@ -268,9 +272,11 @@ function follow(username, followed) {
         button.innerHTML = "Following"
         button.setAttribute("id", "unfollow_button");
         button.setAttribute("onclick", `follow('${username}', true)`)
+        // increase the follower count
         follower_count.innerHTML++
     }
 
+    // send the follow/unfollow request to the API
     fetch(`/profile/${username}/follow`, {
         method: 'PUT',
     })

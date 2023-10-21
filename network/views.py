@@ -12,18 +12,21 @@ from datetime import datetime
 import json
 
 
+# A page to view posts from all users, or a welcome page if not logged in
 def index(request):
 
     return render(request, "network/index.html", {
     })
 
 
+# A page to view posts from users you are following
 def view_following(request):
 
     return render(request, "network/following.html", {
     })
 
 
+# profile page that displays a bio and that user's posts
 def profile(request, username):
 
     user = User.objects.get(username=username)
@@ -35,8 +38,9 @@ def profile(request, username):
     following_count = following.count()
 
     bio = User_bio.objects.filter(user=user)
+
+    # If the account has just been created, set a default bio for the user
     if not bio.exists():
-        print("NO BIO")
         default_bio = User_bio(
             user=request.user,
             bio="I'm New!",
