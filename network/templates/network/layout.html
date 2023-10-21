@@ -25,6 +25,7 @@
             {% endblock %}
         </main>
 
+        {% if user.is_authenticated %}
         <nav>
           <div>
             <a class="nav_item" href="?page=1" onclick="change_page('prev')" id="prev_page_link"><i class="fa-solid fa-chevron-left"></i></a>
@@ -45,5 +46,6 @@
             <a class="page_link" href="?page=2" onclick="change_page('next')" id="next_page_link"><i class="fa-solid fa-chevron-right"></i></a>
           </div>
         </nav>
+        {% endif %}
     </body>
 </html>

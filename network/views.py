@@ -34,6 +34,16 @@ def profile(request, username):
     following = Follower.objects.filter(follower=user)
     following_count = following.count()
 
+    bio = User_bio.objects.filter(user=user)
+    if not bio.exists():
+        print("NO BIO")
+        default_bio = User_bio(
+            user=request.user,
+            bio="I'm New!",
+            bio_image_url="https://emojis.wiki/thumbs/emojis/raising-hands.webp"
+        )
+        default_bio.save()
+
     bio = User_bio.objects.get(user=user)
 
     return render(request, "network/profile.html", {
