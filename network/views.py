@@ -31,9 +31,12 @@ def profile(request, username):
 
     user = User.objects.get(username=username)
 
+    # Get the number of followers the selected user has
     followers = Follower.objects.filter(user=user)
     follower_count = followers.count()
 
+    # Get the number of accounts the selected user follows
+    # (i.e. relationships where the user is the follower)
     following = Follower.objects.filter(follower=user)
     following_count = following.count()
 
@@ -52,9 +55,7 @@ def profile(request, username):
 
     return render(request, "network/profile.html", {
         "username": username,
-        "followers":  followers,
         "follower_count": follower_count,
-        "following": following,
         "following_count": following_count,
         "bio": bio,
     })
