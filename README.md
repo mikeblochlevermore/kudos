@@ -2,7 +2,7 @@
 
 ## A social network for sharing achievements and getting kudos for them
 
-[See the Video](https://youtu.be/seKbkqJvGgA)<br>
+[See the Video](https://youtu.be/tE8i0XUhj_8)<br>
 
 🙌 Users can like (give kudos) to posts to recognise and celebrate other's successes
 
