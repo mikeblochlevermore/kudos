@@ -1,0 +1,254 @@
+* {
+    margin: 0;
+}
+
+#logo {
+    font-size: 30px;
+    text-decoration: none;
+    color: black;
+    padding: 10px;
+    font-family: 'Work Sans', sans-serif;
+    text-align: center;
+}
+
+header {
+    display: flex;
+    justify-content: center;
+    background-color: yellow;
+    height: 80px;
+    align-items: center;
+}
+
+#welcome_text {
+    text-align: center;
+}
+
+main {
+    margin: 20px;
+}
+
+#index_screen {
+    margin-bottom: 110px;
+}
+
+#login_wrapper {
+    display: flex;
+    justify-content: center;
+}
+
+#login {
+    padding: 20px;
+    margin-top: 20px;
+    gap: 10px;
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+    width: 430px;
+}
+
+.new_post_form {
+    display: block;
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+    padding: 40px;
+    width: 430px;
+}
+
+.create_form {
+    display: grid;
+    gap: 10px;
+}
+
+.create_form input {
+    padding: 12px;
+    border-radius: 10px;
+}
+
+.submit_button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    outline: none;
+    margin-top: 6px;
+}
+
+#content_input {
+    height: 120px;
+}
+
+#posts {
+    margin-bottom: 110px;
+}
+
+.new_post_wrapper {
+    display: flex;
+    justify-content: center;
+}
+
+.post {
+    display: flex;
+    justify-content: center;
+}
+
+.post_wrapper {
+    display: flex;
+    padding: 20px;
+    margin-top: 20px;
+    gap: 10px;
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+    width: 430px;
+}
+
+.avatar {
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.post_details {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+.post_time {
+    color: grey;
+}
+
+.post_content {
+    padding-bottom: 10px;
+    display: flex;
+}
+
+.post_image {
+    width: 300px;
+    height: 200px;
+    object-fit: cover;
+    overflow: hidden;
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+}
+
+.like_display {
+    display: flex;
+    font-size: 20px;
+}
+
+.like_display button {
+    border: 0;
+    background-color: inherit;
+    border-radius: 50%;
+    outline: none;
+}
+
+.like_display button:hover {
+    background-color: yellow;
+    color: transparent;
+    text-shadow: 0 0 0 grey;
+}
+
+#profile_wrapper {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    justify-content: center;
+}
+
+#edit_button, #edit_bio_button, #save_button {
+    outline: none;
+    border: none;
+    background-color: inherit;
+    color: #007bff;
+}
+
+#editing_textarea {
+    width: 300px;
+    border-radius: 10px;
+    border: 1px solid #007bff;
+    padding: 10px;
+}
+
+#bio_text_wrapper {
+    text-align: center;
+    display: flex;
+    justify-content: center;
+}
+
+#bio_text {
+    margin-top: 20px;
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+    width: 430px;
+    padding: 20px;
+}
+
+#bio_image {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    object-fit: cover;
+    overflow: hidden;
+}
+
+#logout_button, #login_button {
+    background-color: #007bff;
+    color: white;
+    border-radius: 10px;
+    width: 100px;
+    padding: 6px;
+    text-decoration: none;
+    text-align: center;
+    border: none;
+    outline: none;
+}
+
+#follow_button_div {
+    margin-bottom: 20px;;
+}
+
+#follow_button {
+    background-color: #007bff;
+    color: white;
+    border-radius: 10px;
+    width: 100px;
+    height: 35px;
+    outline: none;
+    border: none;
+}
+
+#unfollow_button {
+    background-color: lightgray;
+    border-radius: 10px;
+    width: 100px;
+    height: 35px;
+    outline: none;
+    border: none;
+}
+
+#follow_details {
+    display: flex;
+    gap: 20px;
+}
+
+#follow_details div {
+    display: flex;
+    gap: 10px;
+}
+
+#follow_details p {
+    color: gray;
+}
+
+nav {
+    display: flex;
+    justify-content: space-between;
+    position: fixed;
+    background-color: yellow;
+    width: 100%;
+    height: 80px;
+    font-size: 25px;
+    align-items: center;
+    bottom: 0;
+}
+
+nav a {
+    color: black;
+    text-decoration: none;
+    padding: 15px;
+}
