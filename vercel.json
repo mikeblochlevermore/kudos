@@ -7,6 +7,10 @@
   ],
   "routes": [
     {
+      "src": "/staticfiles/(.*)",
+      "dest": "/staticfiles/$1"
+    },
+    {
       "src": "/(.*)",
       "dest": "project4/wsgi.py"
     }
