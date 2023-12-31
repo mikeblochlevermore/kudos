@@ -1,6 +1,10 @@
 # CS50W Project 4: Network (Kudos)
 
+<img src="https://github.com/mikeblochlevermore/kudos/blob/master/network/static/network/banner.png?raw=true" max-width="800"/>
+
 ## A social network for sharing achievements and getting kudos for them
+
+[![See the Video](https://github.com/mikeblochlevermore/kudos/blob/master/network/static/network/youtube.png?raw=true)](https://youtu.be/tE8i0XUhj_8)
 
 [See the Video](https://youtu.be/tE8i0XUhj_8)<br>
 
