@@ -1,8 +1,9 @@
 # CS50W Project 4: Network (Kudos)
+### A social network for sharing achievements and getting kudos for them
 
 <img src="https://github.com/mikeblochlevermore/kudos/blob/master/network/static/network/banner.png?raw=true" max-width="800"/>
 
-## A social network for sharing achievements and getting kudos for them
+## Watch on YouTube
 
 [![See the Video](https://github.com/mikeblochlevermore/kudos/blob/master/network/static/network/youtube.png?raw=true)](https://youtu.be/tE8i0XUhj_8)
 
@@ -20,6 +21,8 @@
 
 
 ## Post data requested via json
+
+![Kudos Example](https://github.com/mikeblochlevermore/kudos/blob/master/network/static/network/kudos_example.gif?raw=true)
 
 For this project, I have build a front and backend.
 
@@ -119,6 +122,8 @@ def view_posts(request, filter, page):
 ```
 
 ## Likes / Giving Kudos
+
+![Likes Example](https://github.com/mikeblochlevermore/kudos/blob/master/network/static/network/likes_example.gif?raw=true)
 
 ### Liked status
 Whether a post has already been 'liked' by the current user is determined below when data is fetched for the post. The 'liked' status (True / False) is sent as part of the json file containing the posts' data.
@@ -233,6 +238,8 @@ Clicking the button in either state will update the page using JavaScript:
 ```
 
 ## Following another user
+
+![Follow Example](https://github.com/mikeblochlevermore/kudos/blob/master/network/static/network/follow_example.gif?raw=true)
 
 On each user's bio page will be a button to follow / unfollow that user's posts.
 Note if a user visits their own bio page, this button is simply replaced by an option to log out.
@@ -369,6 +376,8 @@ function change_page(direction) {
 }
 ```
 ## The nav in layout.html
+
+![Nav Example](https://github.com/mikeblochlevermore/kudos/blob/master/network/static/network/nav_example.gif?raw=true)
 
 The layout features a footer navigation with large icons.
 Options are:
@@ -546,3 +555,18 @@ def new_post(request):
 - register.html
 
 [See Project Specifications](https://cs50.harvard.edu/web/2020/projects/4/network/)
+
+### How to run
+
+Set up database
+- python3 manage.py makemigrations
+- python3 manage.py migrate
+
+Run server
+- python3 manage.py runserver
+
+### Get in Touch!
+
+Michael Bloch-Levermore <br>
+📧 interactivephilosophy@gmail.com <br>
+👤 [LinkedIn](https://www.linkedin.com/in/mike-bloch-levermore/)
